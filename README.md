@@ -1,138 +1,126 @@
-# RamEx
 
-![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
-![Release date](https://img.shields.io/badge/Release%20date-Jan.%2010%2C%202024-brightgreen)
+<p align="center" style="margin-bottom: 0px !important;">
+  <img src="xxx" width="100" height="100">
+</p>
+<h1 align="center" style="margin-top: -10px; font-size: 20px">DIA-NN</h1>
 
+A ramanome represents a single-cell-resolution metabolic phenome that is information-rich, revealing functional heterogeneity among cells, and universally applicable to all cell types. Ramanome Explorer (RamEx, Fig.1) is a toolkit for comprehensive and efficient analysis and comparison of ramanomes. Results from the multidimensional analysis are visualized via intuitive graphics. Implemented via R, RamEx is fully extendable and supports cross-platform use.By providing simple-to-use modules for computational tasks that otherwise would require substantial programming experience and algorithmic skills, RamEx should greatly facilitate the computational mining of ramanomes.
 
+RamEx is built on the following principles:    
+- **Reliability** achieved via stringent statistical control
+- **Robustness** achieved via flexible modelling of the data and automatic parameter selection
+- **Reproducibility** promoted by thorough recording of all analysis steps
+- **Ease of use**: high degree of automation, an analysis can be set up in several mouse clicks, no bioinformatics expertise required
+- **Powerful tuning options** to enable unconventional experiments
+- **Scalability and speed**: up to xxx runs processed per minutes
 
-## Contents
+**Download**: https://github.com/qibebt-bioinfo/RamEx
+(it's recommended to use the latest version - RamEx 2.1)  
 
-- [Introduction](#introduction)
-- [System Requirement and dependency](#system-requirement-and-dependency)
-- [Installation guide](#installation-guide)
-- [Usage](#usage)
-- [Example dataset](#example-dataset)
+<img src="xxx"></br>  
 
+Please cite   
+**RamEx : xxxx 
 
-# Introduction
+[xxxx, 2024](https://github.com/qibebt-bioinfo/RamEx)
 
-A ramanome represents a single-cell-resolution metabolic phenome that is information-rich, revealing functional heterogeneity among cells, and universally applicable to all cell types.Ramanome Explorer (RamEx, Fig.1) is a toolkit for comprehensive and efficient analysis and comparison of ramanomes. Results from the multidimensional analysis are visualized via intuitive graphics. Implemented via R and C++, RamEx is fully extendable and supports cross-platform use.By providing simple-to-use modules for computational tasks that otherwise would require substantial programming experience and algorithmic skills, RamEx should greatly facilitate the computational mining of ramanomes.
-![Fig. 1. The software architecture of RamEx.](http://bioinfo.single-cell.cn/images/RamEx.png)  
-<div align=center>Fig.1. The software architecture of RamEx. RamEx integrates five core modules (data governance and preprocessing, real-time ramanome depth analysis, microbiome heterogeneity index analysis, IRCA, and RBCS) to support a complete ramanome-analysis pipeline.</div>
+When using RamEx for xxxx   
+**IRCA**   
+[x'x'x, 2021](https://github.com/qibebt-bioinfo/RamEx)
 
+When using RamEx for xxxx
+**RBCS**  
+[x'x'x, 2022](https://github.com/qibebt-bioinfo/RamEx)
 
+When using RamEx for xxxx 
+**xxx**
+[x'x'x, 2022](https://github.com/qibebt-bioinfo/RamEx)
 
-# System Requirement and dependency
+**Other key papers**  
+- xxxx:  
+[x'x'x, 2020](https://github.com/qibebt-bioinfo/RamEx) and [Cell Systems, 2021](https://github.com/qibebt-bioinfo/RamEx)
+- xxxx:   
+[x'x'x, 2021](https://github.com/qibebt-bioinfo/RamEx)
 
-## Hardware Requirements
+**R package** some useful functions:https://github.com/qibebt-bioinfo/RamEx 
+**Visualisation** of ramanome
 
-RamEx only requires a standard computer with >1GB RAM to support the operations defined by a user.
+### Table of Contents
+**[Installation](#installation)**<br>
+**[Getting started](#getting-started)**<br>
+**[Raw data formats](#raw-data-formats)**<br>
+**[Output](#output)**<br>
+**[Changing default settings](#changing-default-settings)**<br>
+**[Visualisation](#visualisation)**<br>
+**[Automated pipelines](#automated-pipelines)**<br>
+**[Functions](#functions)**<br>
+**[Frequently asked questions (FAQ)](#frequently-asked-questions)**<br>
+**[Contact](#contact)**<br>
 
-## Software Requirements
+### Installation
 
-RamEx only requires a C++ compiler (e.g. g++) to build the source code. Most Linux releases have g++ already been installed in the system. In Mac OS, to install the compiler, we recommend to install the Xcode application from the App store.
-
-# Installation guide
-
-## Automatic Installation (recommended)
-
-At present, RamEx provides a fully automatic installer for easy installation.
-
-**a. Download the package**
+RamEx will be installed from GitHub:.
 ```
-git clone https://github.com/qibebt-bioinfo/RamEx.git	
-```
-
-**b. Install by installer**
-```
-cd RamEx
-source install.sh
-```
-
-The package should take less than 1 minute to install on a computer with the specifications recommended above.
-
-The example dataset could be found at “examples” folder. Check the “examples/Readme” for details about the demo run.
-
-## Manual Installation
-
-If the automatic installer fails, RamEx can still be installed manually.
-
-**a. Download the package**
-```
-git clone https://github.com/qibebt-bioinfo/RamEx.git	
-```
-
-**b. Configure the environment variables (the default environment variable configuration file is “~/.bashrc”)**
-```
-export RamEX=Path to RamEx
-export PATH="$PATH:$RamEX/bin/"
-source ~/.bashrc
-```
-**c. Compile the source code**
-```
-cd RamEx
-make
-```
-# Usage
-The RamEx consists of three modules: QC（pretreatment）IRCA and RBCS. Currently the RamEx requires all CAST-R, Horiba and Renishaw files as txt object.
-
-**I. QC（pretreatment）** 
-
-Ramanome analysis starts with data management and preprocessing of SCRS
-In the QC step, RamEx provides several functions: initialization, read data,  smooth, quanlity control, baseline, normalization and visual variance analysis, including PCA,t-SNE and PLS-DA. 
-
-Currently the RamEx requires files as txt object. All spectrum data stored in few subfolders of the working path by group. 
-
-***Initialization***
-
-The initialization function makesure the working directory and creat the ouput directry.
-
-***Read data***
-
-For CAST-R and Horiba spectrum data, RamEx reads data from the subfolders of the working path by group. And for Renishaw mapping data, RamEx can read mapping data from the working directory and creat some subfolders by group. Then, RamEx can read them like CAST-R and Horiba spectrum data.
-
-***Preprocessing(smooth; quanlity control; baseline; normalization)***
-
-All data can be preprocessed by combining the provided functions as desired.
-
-***Visual variance analysis(PCA,t-SNE and PLS-DA)***
-
-Low-dimensional spatial visualization provides us with an intuitive understanding of ramanome. To run this module you can use the command "RamEx-QC" as below:
-
-```
-RamEx-QC ...
+library('devtools'); 
+install_github("qibebt-bioinfo/RamEx")
 ```
 
+### Getting Started
+
+RamEx can be installed simply: 
+
+1. load the RamEx package:
+```  
+library('ramextest'); 
+```  
+2. load the data **read_spec** and generate a ramanome object.
+3. xxx
+4. xxx
+5. xxx
 
 
-**II.  Intra-Ramanome Correlation Analysis (IRCA)**
+### Raw data formats
 
-To produce the IRCN from a ramanome data point, spectral range, spectral resolution, and spectral normalization are first derived or performed via the data preprocessing module. Then the Pearson correlation coefficients (PCC; ρ) of all possible pairwise combinations of Raman peak are calculated from a ramanome. Key network parameters are calculated by the “igraph” package in R to probe the global features of an IRCN. All Raman peaks are used for deriving the global IRCN, while only characteristic marker Raman peaks are used for the simplified versions of IRCN (Local IRCN) to facilitate visualization. 
-
-
-Furthermore, RamEx derives three graphic signatures that depict and characterize the links among key SCRS features: metabolite profile (MP), metabolite interaction (MI) and metabolite conversion (MC). MP depicts the mean SCRS of a ramanome. MI, also a network derived via inherent variations of SCRS in a ramanome, is constructed based on the matrix of all pairwise Raman peaks with significant correlations (P < 0.05). In contrast, MC is a network consisting of only those pairwise Raman peaks with strongly negative correlation (ρ ≤–0.6, P < 0.05). To compare the networks, hierarchical cluster analysis (HCA) was performed with Ward’s algorithm. To run this module you can use the command "RamEx-IRCA-**" as below:
-
-```
-RamEx-IRCA-** ...
-```
-
-
-**III.  Raman Barcode of Cellular-response to Stress(RBCS)**
-
-We have proposed RBCS, which represents the time- or condition-specific response of ramanome to stimuli. RBCS contains a series of Raman peaks that are more responsive to stimuli. The dynamic changes of these Raman signals constitute a specific identification code that can be used to quickly distinguish and identify specific cellular responses of each stimulus. Based on stoichiometric methods, the RBCS obtained from the analysis and comparison of Raman profiles under all stimuli cannot only distinguish the cellular responses of different stimuli, but also provide information on their cytotoxicity (i.e., cell mortality). To run this module you can use the command "RamEx-RBCS" as below: 
-
-```
-RamEx-RBCS ...
-```
-
-# Example dataset
-
-
-Two investigated species of S. mutans (Sm) and S. sanguinis (Ss) were performed a complete transition of three typical phases in bacterial growth: lag (0–2 h), log (4–8 h), stationary (12–24 h), which was deemed worthwhile to be investigated via Raman microspectroscopy. We ensured that the majority of individual spectra were taken over single cells and preparation conditions were consistent between samples.
+Formats supported: xxx. 
 
 
 
-# Reference
-1. Lee, K. S. et al.,  Raman microspectroscopy for microbiology. _Nature Reviews Methods Primers_, 2021.
-2. Xu, J. et al., Emerging Trends for Microbiome Analysis: From Single-Cell Functional Imaging to Microbiome Big Data. _Engineering_, 2017.
+### Output
 
+The **Output** pane allows to specify where the output should be saved. There are xxx types of output files produced by RamEx: XXXX
+
+
+
+
+### Changing default settings
+RamEx can be successfully used to process almost any experiment with default settings. In general, it is recommended to only change settings when specifically advised to xxx.
+
+In many cases, one might want to change several parameters: .
+- **xxx** should be enabled in most cases, xxx.
+
+
+### Visualisation
+
+
+### Automated pipelines
+The pipeline allows to xxx.
+
+### functions
+
+**Import** Import the xx data
+* **R Data** xxx
+**Quality Control** Import the xx data
+* **Outlier Detection** xxx
+**Cell-level analysis** Import the xx data
+* **Outlier Detection** xxx
+**Singal-level analysis** Import the xx data
+* **RBCS** xxx
+**Visualization** Import the xx data
+* **mean_spectrum** xxx
+
+### Frequently asked questions
+**Q: Why RamEx?**  
+**A:** xxx
+
+### Contact
+Please post any questions, feedback, comments or suggestions on the [GitHub Discussion board](https://github.com/qibebt-bioinfo) (alternatively can create a GitHub issue) or email SCC 
